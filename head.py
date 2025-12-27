@@ -86,14 +86,17 @@ class CharacterSound():
         if self.vel != vec(0,0):
             self.frame_cpt += 1
             if self.frame_cpt == self.freq :
-                pygame.mixer.Sound.play(footstep_sound)
+                # Select a random pitch-shifted footstep sound
+                sound = random.choice(footstep_sounds)
+                pygame.mixer.Sound.play(sound)
+
                 self.frame_cpt = 0
 
 class Music():
     def __init__(self):
         pygame.mixer.music.load("assets/sounds/soundtracks/ambiance.wav")
         pygame.mixer.music.play(-1,0.0, 1000)
-
+        pygame.mixer.music.set_volume(VOLUME_SONORE)
         self.music_name = "ambiance"
 
     def update4(self,player,room):
@@ -104,6 +107,7 @@ class Music():
             pygame.mixer.music.unload()
             pygame.mixer.music.load("assets/sounds/soundtracks/train.wav")
             pygame.mixer.music.play(-1,0.0, 1000)
+            pygame.mixer.music.set_volume(VOLUME_SONORE)
 
     def update3(self,player,room,going_crazy):
 
@@ -113,6 +117,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/mindblow.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
         
         else :
 
@@ -121,6 +126,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/black_lvl.mp3")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
 
     
     def update2(self,player,room):
@@ -131,6 +137,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/bonhome_rouge.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
         
         else :
 
@@ -139,6 +146,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/ambiance2_.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
 
     def update(self,player,room):
 
@@ -148,6 +156,7 @@ class Music():
                 if not pygame.mixer.music.get_busy():
                     pygame.mixer.music.load("assets/sounds/soundtracks/Papillon.wav")
                     pygame.mixer.music.play(-1,0.0, 1000)
+                    pygame.mixer.music.set_volume(VOLUME_SONORE)
             else :
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.fadeout(1000)
@@ -158,6 +167,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/bonhome_rouge.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
 
         elif room.name == "hp_room" or room.name == "3doors":
             if self.music_name != "hp":
@@ -165,6 +175,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/hp.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
 
         elif hasattr(room, 'color_cube'):
 
@@ -174,6 +185,7 @@ class Music():
                     pygame.mixer.music.unload()
                     pygame.mixer.music.load("assets/sounds/soundtracks/cube.wav")
                     pygame.mixer.music.play(-1,0.0, 1000)
+                    pygame.mixer.music.set_volume(VOLUME_SONORE)
 
             elif room.color_cube and room.color_cube.hyped:
                 if self.music_name != "open_cube":
@@ -181,6 +193,7 @@ class Music():
                     pygame.mixer.music.unload()
                     pygame.mixer.music.load("assets/sounds/soundtracks/open_cube.wav")
                     pygame.mixer.music.play(-1,0.0, 1000)
+                    pygame.mixer.music.set_volume(VOLUME_SONORE)
 
 
 
@@ -190,6 +203,7 @@ class Music():
                 pygame.mixer.music.unload()
                 pygame.mixer.music.load("assets/sounds/soundtracks/ambiance.wav")
                 pygame.mixer.music.play(-1,0.0, 1000)
+                pygame.mixer.music.set_volume(VOLUME_SONORE)
 
 music = Music()
 

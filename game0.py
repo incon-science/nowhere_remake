@@ -5,11 +5,11 @@ def start0():
 
     glitch_list = []
 
-    game_over = GameOver("Nowhere",(255, 255, 255))
+    game_over = GameOver("NowHere",(255, 255, 255))
 
     frame_count = 0
 
-    while frame_count < 60*4:
+    while frame_count < 60*2:
 
         screen.fill((0,0,0))
         
@@ -22,7 +22,7 @@ def start0():
 
     frame_count = 0
 
-    while frame_count < 60*10:
+    while frame_count < 60*5:
 
         if frame_count%6 == 0:
             glitch = AnimatedObject("glitchSheet",8,4,(random.randint(0,WIDTH),random.randint(0,HEIGHT)))
@@ -45,7 +45,7 @@ def start0():
 
     frame_count = 0
 
-    while frame_count < 60*5:
+    while frame_count < 60*2:
 
         for event in pygame.event.get():
             player.controls(event)

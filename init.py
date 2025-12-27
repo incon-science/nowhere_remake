@@ -3,6 +3,13 @@ from pygame.locals import *
 import random
 import sys
 from datetime import datetime
+import numpy as np
+try:
+    import librosa
+    import soundfile as sf
+    PITCH_SHIFT_AVAILABLE = True
+except ImportError:
+    PITCH_SHIFT_AVAILABLE = False
 
 pygame.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
@@ -17,8 +24,30 @@ infoObject = pygame.display.Info()
 WIDTH = infoObject.current_w
 HEIGHT = infoObject.current_h
 
+VOLUME_SONORE = 0.1
 
 footstep_sound = pygame.mixer.Sound("assets/sounds/step.wav")
+footstep_sound.set_volume(0.3)
+
+# Create pitch-shifted variants for more natural footsteps
+footstep_sounds = [footstep_sound]
+if PITCH_SHIFT_AVAILABLE:
+    try:
+        # Load the audio file
+        y, sr = librosa.load("assets/sounds/step.wav", sr=None)
+        # Create pitch-shifted versions (±2 semitones for variation)
+        for semitone_shift in [-2, 2]:
+            y_shifted = librosa.effects.pitch_shift(y, sr=sr, n_steps=semitone_shift)
+            # Create temporary file for the shifted sound
+            temp_path = f"assets/sounds/step_pitch_{semitone_shift}.wav"
+            sf.write(temp_path, y_shifted, sr)
+            # Load as pygame Sound
+            shifted_sound = pygame.mixer.Sound(temp_path)
+            shifted_sound.set_volume(0.3)
+            footstep_sounds.append(shifted_sound)
+    except Exception as e:
+        print(f"Pitch shifting setup failed: {e}")
+        footstep_sounds = [footstep_sound]
 
 background_image = pygame.image.load("assets/MY1SYe.jpg").convert()
 

@@ -9,6 +9,10 @@ from game7 import *
 
 list_game_over = ["Think before","Fail better","Suicide is forbidden"]
 
+
+
+
+
 def save(level):
     # Writing to an existing file (content will be overwritten)
     with open("save.txt", "w") as f:
